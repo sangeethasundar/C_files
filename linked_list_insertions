@@ -1,0 +1,77 @@
+ 
+#include <stdio.h> 
+#include <stdlib.h> 
+  
+struct Node { 
+    int data; 
+    struct Node* next; 
+}; 
+ 
+struct node* push(struct Node* n,int value) 
+{ 
+     struct Node* new = NULL;
+     new = (struct Node*)malloc(sizeof(struct Node));
+     new->data=value;
+     new->next=n;
+     return new;
+}
+
+void insert_after(int a,struct Node* n,int value) 
+{ 
+     while((a--)>0) {
+       n=n->next;
+     }
+     struct Node* new = NULL;
+     new = (struct Node*)malloc(sizeof(struct Node));
+     new->data=value;
+     new->next=n->next;
+     n->next=new;
+}
+
+void append(struct Node* n,int value) 
+{ 
+     while(n->next!=NULL) 
+         n=n->next;
+     struct Node* new = NULL;
+     new = (struct Node*)malloc(sizeof(struct Node));
+     new->data=value;
+     n->next=new;
+     new->next=NULL;
+}
+
+void printList(struct Node* n) 
+{ 
+    while (n != NULL) { 
+        printf(" %d ", n->data); 
+        n = n->next; 
+    } 
+}
+  
+int main() 
+{ 
+    struct Node* head = NULL; 
+
+    head = (struct Node*)malloc(sizeof(struct Node)); 
+    head->data=15;
+    head->next=NULL;  
+  
+    append(head,20);
+
+    append(head,25);
+    
+    head=push(head,10);
+    
+    head=push(head,5);
+
+    insert_after(2,head,18);
+
+    head=push(head,2);
+
+    append(head,30);
+
+    insert_after(2,head,12);
+    
+    printList(head);
+  
+    return 0; 
+}
