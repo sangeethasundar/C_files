@@ -1,0 +1,54 @@
+#include <stdio.h> 
+#include <stdlib.h> 
+  
+struct Node { 
+    int data; 
+    struct Node* next; 
+}; 
+ 
+void push(struct Node** n,int value) 
+{ 
+     struct Node* new = NULL;
+     new = (struct Node*)malloc(sizeof(struct Node));
+     new->data=value;
+     new->next=*n;
+     *n=new;
+}
+
+struct Node* deleting_linked_list(struct Node* n)
+{
+  struct Node* temp;
+  while(n!=NULL)
+  {
+    temp=n->next;
+    printf("deleted %d\n",n->data);
+    free(n);
+    n=temp;
+  }
+  return n;
+}
+
+void printList(struct Node* n) 
+{ 
+    while (n != NULL) { 
+        printf(" %d ", n->data); 
+        n = n->next; 
+    } 
+}
+  
+int main() 
+{ 
+    struct Node* head = NULL;
+    
+    int a=5;
+    for(int i=1;i<5;i++)
+         push(&head,a*i);
+
+    printList(head);
+
+    head=deleting_linked_list(head);
+    
+    printList(head);
+  
+    return 0; 
+}
