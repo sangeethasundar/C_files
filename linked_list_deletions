@@ -1,0 +1,112 @@
+#include <stdio.h> 
+#include <stdlib.h> 
+  
+struct Node { 
+    int data; 
+    struct Node* next; 
+}; 
+ 
+struct node* push(struct Node* n,int value) 
+{ 
+     struct Node* new = NULL;
+     new = (struct Node*)malloc(sizeof(struct Node));
+     new->data=value;
+     new->next=n;
+     return new;
+}
+
+void insert_after(int a,struct Node* n,int value) 
+{ 
+     while((a--)>0) {
+       n=n->next;
+     }
+     struct Node* new = NULL;
+     new = (struct Node*)malloc(sizeof(struct Node));
+     new->data=value;
+     new->next=n->next;
+     n->next=new;
+}
+
+void append(struct Node* n,int value) 
+{ 
+     while(n->next!=NULL) 
+         n=n->next;
+     struct Node* new = NULL;
+     new = (struct Node*)malloc(sizeof(struct Node));
+     new->data=value;
+     n->next=new;
+     new->next=NULL;
+}
+
+void deletion_based_on_key(struct Node* n,int k)
+{
+  struct Node* temp=n;
+  struct Node* prev;
+  while(temp->data!=k)
+  {
+    prev=temp;
+    temp=temp->next;
+  }
+  prev->next=temp->next;
+  free(temp);
+}
+
+struct Node* deletion_based_on_position(struct Node* n,int pos)
+{
+  struct Node* temp=n;
+  struct Node* prev;
+  if(pos==0){
+    n=temp->next;
+    free(temp);
+    return n;
+  }
+  while(pos-->0)
+  {
+    prev=temp;
+    temp=temp->next;
+  }
+  prev->next=temp->next;
+  free(temp);
+  return n;
+}
+
+void printList(struct Node* n) 
+{ 
+    while (n != NULL) { 
+        printf(" %d ", n->data); 
+        n = n->next; 
+    } 
+}
+  
+int main() 
+{ 
+    struct Node* head = NULL; 
+
+    head = (struct Node*)malloc(sizeof(struct Node)); 
+    head->data=15;
+    head->next=NULL;  
+  
+    append(head,20);
+
+    append(head,25);
+    
+    head=push(head,10);
+    
+    head=push(head,5);
+
+    insert_after(2,head,18);
+
+    head=push(head,2);
+
+    append(head,30);
+
+    insert_after(2,head,12);
+
+    deletion_based_on_key(head,12);
+
+    head=deletion_based_on_position(head,2);
+    
+    printList(head);
+  
+    return 0; 
+}
