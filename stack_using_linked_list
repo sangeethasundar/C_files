@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include<stdlib.h>
+#include<limits.h>
+
+struct stack
+{
+  int data;
+  struct stack* next;
+};
+
+void push(struct stack** n,int item){
+struct stack* new=(struct stack*)malloc(sizeof(struct stack));
+new->data=item;
+new->next=*n;
+*n=new;
+}
+
+void pop(struct stack** n){
+  struct stack* temp=*n;
+  *n=temp->next;
+  free(temp);
+}
+
+
+void printstack(struct stack* n){
+  while(n!=NULL){
+    printf("%d ",n->data);
+    n=n->next;
+  }
+  printf("\n");
+}
+
+
+int main(void) {
+
+struct stack* head=NULL;
+  push(&head,1);
+  printstack(head);
+  push(&head,2);
+  printstack(head);
+  push(&head,3);
+  printstack(head);
+  pop(&head);
+  printstack(head);
+  pop(&head);
+  printstack(head);
+  push(&head,4);
+  printstack(head);
+  push(&head,5);
+  printstack(head);
+
+  return 0;
+}
