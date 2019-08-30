@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include<stdlib.h>
+#define capacity 400
+
+int top=-1;
+char stack[capacity];
+
+void push(char a){
+  stack[++top]=a;
+  printf("pushed %c\n",stack[top]);
+}
+
+void pop(){
+  printf("popped %c\n",stack[top--]);
+}
+
+int main(void) {
+  char exp[]="{{[()]}";
+  int i=0;
+  while(exp[i++]!='\0'){
+    char a=exp[i-1];
+    if(a=='{' || a=='[' || a=='(')
+         push(a);
+    else if(a=='}' || a==']' || a==')')
+        pop();
+  }
+
+  if(top==-1)
+     printf("Balanced\n");
+  else
+     printf("Not balanced top=%d\n",top);
+
+  return 0;
+}
