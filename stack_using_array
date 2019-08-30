@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include<stdlib.h>
+#include<limits.h>
+#define capacity 400
+
+int stack[capacity];
+int top=-1;
+
+int isfull(int top){
+  return top==capacity-1;
+}
+
+int isempty(int top){
+  return top==-1;
+}
+
+void push(int item){
+if(isfull(top))
+    return;
+stack[++top]=item;
+printf("pushed %d\n",stack[top]);
+}
+
+void pop(){
+  if(isempty(top))
+    return;
+  printf("popped %d\n",stack[top--]);
+}
+
+
+int main(void) {
+
+  push(1);
+  push(2);
+  push(3);
+  push(4);
+  push(5);
+  push(6);
+  push(7);
+  push(8);
+  pop();
+  pop();
+  pop();
+  pop();
+  printf("top %d\n",top);
+
+  return 0;
+}
