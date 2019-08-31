@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include<stdlib.h>
+# define capacity 400
+
+int top=-1;
+char stack[capacity];
+
+void push(char item){
+    stack[++top]=item;
+    //printf("pushed %c\n",stack[top]);
+}
+
+char pop(){
+  //printf("popped %c\n",stack[top]);
+  return stack[top--];
+}
+
+int main(void) {
+  char exp[]="A*(B+C)*D";
+  int i=0;
+  while(exp[i++]){
+    char a=exp[i-1];
+    if(((int)a>=97 && (int)a<=122) || ((int)a>=65 && (int)a<=90))
+          printf("%c",a);
+    else if(a==')'){
+      char b=pop();
+      while(b!='('){
+          printf("%c",b);
+          b=pop();
+      }
+    }
+    else if(a=='(')
+       push(a);
+    else
+    {
+      if(a=='*' || a=='/'){
+          while(stack[top]=='*' || stack[top]=='/'){
+            printf("%c",pop());
+          }
+          push(a);
+      }
+      else if (a=='+' || a=='-'){
+        while(stack[top]=='*' || stack[top]=='/' || stack[top]=='-' || stack[top]=='+'){
+            printf("%c",pop());
+      }
+      push(a);
+    }
+  }
+  }
+    while(top!=-1)
+       printf("%c",pop());
+  printf("\n");
+  return 0;
+}
