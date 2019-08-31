@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include<stdlib.h>
+#define capacity 2
+
+int rear=-1;
+int front=0;
+int size=0;
+int queue[capacity];
+
+int isfull(){
+  return rear==capacity-1;
+}
+
+int isempty(){
+  return size==0;
+}
+
+void enqueue(int item){
+  if(isfull()){
+      printf("Queue is full\n");
+      return;
+  }
+  queue[++rear]=item;
+  printf("Queued %d\n",queue[rear]);
+  size++;
+}
+
+void dequeue(){
+  if(isempty()){
+      printf("Queue is empty\n");
+      return;
+}
+  printf("Dequeued %d\n",queue[front++]);
+  size--;
+}
+
+int main(void) {
+  
+  enqueue(10);
+  enqueue(20);
+  enqueue(30);
+  enqueue(40);
+  dequeue();
+  enqueue(50);
+  dequeue();
+
+  return 0;
+}
